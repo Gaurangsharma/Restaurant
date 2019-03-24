@@ -420,10 +420,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		    $('#search').change(function () {
 				if($(this).val().toString().toLowerCase() == 'rating'){
 				    $('#ratingblock').css({"display":"block"});
-				 //   $('#searchval').css({"display":"none"});
-				} else{
+				    $('#searchval').hide();
+                    $('#searchBtn').hide();
+
+
+                } else{
                     $('#ratingblock').css({"display":"none"});
-                //    $('#searchval').css({"display":"block"});
+                    $('#searchval').show();
+                    $('#searchBtn').show();
+
 
                 }
             });
