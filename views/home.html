@@ -233,21 +233,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<div class="radio" id="ratingblock" style="display: none;">
 							<div class="row">
 								<div class="col-md-2">
-							<input type="radio" name="rating" value="5" class="form-control rating"><span class="text-large" style="background-color: white;color: darkgreen;">Excellent</span>
+							<input type="radio" name="rating" value="5" class="form-control rating"><i class="fa fa-star" style="color: darkgreen;"></i>
+
 						</div>
-						<div class="col-md-3">
-							<input type="radio" name="rating" value="4" class="form-control rating"><span class="text-large" style="background-color: white;color: green;">Very Good</span>
+						<div class="col-md-2">
+							<input type="radio" name="rating" value="4" class="form-control rating"><i class="fa fa-star" style="color: green;"></i>
 						</div>
 							<div class="col-md-2"> 
-							<input type="radio" name="rating" value="3" class="form-control rating"><span class="text-large" style="background-color: white;color: yellow;">Good</span>
+							<input type="radio" name="rating" value="3" class="form-control rating"><i class="fa fa-star" style="color: yellow;"></i>
 							</div>
 							<div class="col-md-2">
-							<input type="radio" name="rating" value="2" class="form-control rating"><span class="text-large" style="background-color: white;color: orange;">Average</span>
+							<input type="radio" name="rating" value="2" class="form-control rating"><i class="fa fa-star" style="color: orange;"></i>
 							</div>
-							<div class="col-md-3">
-							<input type="radio" name="rating" value="1" class="form-control rating"><span class="text-large" style="background-color: black;color: white;">Not Rated</span>
+							<div class="col-md-2">
+							<input type="radio" name="rating" value="1" class="form-control rating"><i class="fa fa-star" style="color: black;"></i>
 							</div>
-						</div> 
+								<div class="col-md-2">
+									<input type="radio" name="rating" value="0" class="form-control rating">All
+								</div>
+
+							</div>
 						</div>
 
 						<div class="clearfix"> </div>
@@ -269,7 +274,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<p>Aggregate rating</p><h3><%=arrData[i]["Aggregate rating"]%></h3>
 						<p>Rating color</p><h3 class="ratecolor"><%=arrData[i]["Rating color"]%></h3>
 						<p>Rating text</p><h3 class="ratetext"><%=arrData[i]["Rating text"]%></h3>
-						<p>Votes</p><h3 class="vote"><%=arrData[i]["Votes"]%></h3>
+						<p>Votes</p><h3 class="vote"><%=arrData[i]["Votes\r"]%></h3>
 					</div>
 				</div> 
                  
@@ -415,8 +420,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		    $('#search').change(function () {
 				if($(this).val().toString().toLowerCase() == 'rating'){
 				    $('#ratingblock').css({"display":"block"});
+				 //   $('#searchval').css({"display":"none"});
 				} else{
                     $('#ratingblock').css({"display":"none"});
+                //    $('#searchval').css({"display":"block"});
 
                 }
             });
@@ -428,16 +435,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				"Very Good":4,
 				"Good":3,
 				"Average":2,
-				"Not Rated":1
+				"Not rated":1
 			};
 
 
 		    $('.rating').change(function () {
 				var rate = $(this).val();
 
-                $('.restaurants .mycard').filter(function () {
-                    $(this).toggle(convert[$(this).find('div').find('.ratetext').text().toString()]==rate)
-                })
+				if(eval(rate) == 0){
+                    $('.restaurants .mycard').filter(function () {
+                        $(this).toggle(convert[$(this).find('div').find('.ratetext').text().toString()]>rate)
+                    })
+				}else{
+                    $('.restaurants .mycard').filter(function () {
+                        $(this).toggle(convert[$(this).find('div').find('.ratetext').text().toString()]==rate)
+                    })
+				}
             });
 
 
