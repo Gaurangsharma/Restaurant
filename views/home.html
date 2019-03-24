@@ -231,15 +231,23 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<input type="button" class="col-md-2" id="searchBtn" value="Search">
 
 						<div class="radio" id="ratingblock" style="display: none;">
+							<div class="row">
+								<div class="col-md-2">
 							<input type="radio" name="rating" value="5" class="form-control rating"><span class="text-large" style="background-color: white;color: darkgreen;">Excellent</span>
-							<br>
+						</div>
+						<div class="col-md-3">
 							<input type="radio" name="rating" value="4" class="form-control rating"><span class="text-large" style="background-color: white;color: green;">Very Good</span>
-							<br>
+						</div>
+							<div class="col-md-2"> 
 							<input type="radio" name="rating" value="3" class="form-control rating"><span class="text-large" style="background-color: white;color: yellow;">Good</span>
-							<br>
+							</div>
+							<div class="col-md-2">
 							<input type="radio" name="rating" value="2" class="form-control rating"><span class="text-large" style="background-color: white;color: orange;">Average</span>
-							<br>
+							</div>
+							<div class="col-md-3">
 							<input type="radio" name="rating" value="1" class="form-control rating"><span class="text-large" style="background-color: black;color: white;">Not Rated</span>
+							</div>
+						</div> 
 						</div>
 
 						<div class="clearfix"> </div>
@@ -247,8 +255,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</div>
 			<div class="row about-bottom-w3l text-center pt-lg-5 restaurants">
 					<% for(var i in arrData) { %>
-				<div class="col-md-3 col-sm-4 about-grid mt-sm-0 mycard">
-					<div class="about-grid-main"> 
+				<div class="col-md-4 col-sm-4 about-grid mt-sm-0 mycard">
+						 
+					<div class="about-grid-main text-center"> 
 						<h1 class="name"><%=arrData[i]["Restaurant Name"]%></h1>
 						<h4 class="mb-3"><%=arrData[i]["Restaurant ID"]%></h4>
 						<p>Cuisines</p><h3><%=arrData[i]["Cuisines"]%></h3>
@@ -260,7 +269,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<p>Aggregate rating</p><h3><%=arrData[i]["Aggregate rating"]%></h3>
 						<p>Rating color</p><h3 class="ratecolor"><%=arrData[i]["Rating color"]%></h3>
 						<p>Rating text</p><h3 class="ratetext"><%=arrData[i]["Rating text"]%></h3>
-						<p>Votes</p><h3 class="vote"><%=arrData[i]["Votes\r"]%></h3>
+						<p>Votes</p><h3 class="vote"><%=arrData[i]["Votes"]%></h3>
 					</div>
 				</div> 
                  
@@ -427,7 +436,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				var rate = $(this).val();
 
                 $('.restaurants .mycard').filter(function () {
-                    $(this).toggle(convert[$(this).find('div').find('.ratetext').text().toString()]>=rate)
+                    $(this).toggle(convert[$(this).find('div').find('.ratetext').text().toString()]==rate)
                 })
             });
 
