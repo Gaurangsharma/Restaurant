@@ -221,32 +221,46 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<span> Welcome to our Snacks</span> world's no.1 tasty food</h3>
 				<div class="search-agile col-md-12">
 					<form action="#" method="post"> 
-							<select name="" class="form-control col-md-2" id="search  ">
-									<option value="name" id="op1">Name</option>
-									<option value="vote" id='op2'>Vote</option>
-									<option value="rating" id='op3'>Rating</option>
-							</select> 
-						<input type="search" class="col-md-8" name="search" placeholder="Search here..." required=""> 
-						<input type="submit" class="col-md-2" value="Search">
+							<select name="" class="form-control col-md-2" id="search">
+									<option value="name">Name</option>
+									<option value="vote">Vote</option>
+									<option value="rating">Rating</option>
+							</select>
+
+						<input type="search" class="col-md-8" id="searchval" name="search" placeholder="Search here..." required="">
+						<input type="button" class="col-md-2" id="searchBtn" value="Search">
+
+						<div class="radio" id="ratingblock" style="display: none;">
+							<input type="radio" name="rating" value="5" class="form-control rating"><span class="text-large" style="background-color: white;color: darkgreen;">Excellent</span>
+							<br>
+							<input type="radio" name="rating" value="4" class="form-control rating"><span class="text-large" style="background-color: white;color: green;">Very Good</span>
+							<br>
+							<input type="radio" name="rating" value="3" class="form-control rating"><span class="text-large" style="background-color: white;color: yellow;">Good</span>
+							<br>
+							<input type="radio" name="rating" value="2" class="form-control rating"><span class="text-large" style="background-color: white;color: orange;">Average</span>
+							<br>
+							<input type="radio" name="rating" value="1" class="form-control rating"><span class="text-large" style="background-color: black;color: white;">Not Rated</span>
+						</div>
+
 						<div class="clearfix"> </div>
 					</form>
 				</div>
-			<div class="row about-bottom-w3l text-center pt-lg-5">
+			<div class="row about-bottom-w3l text-center pt-lg-5 restaurants">
 					<% for(var i in arrData) { %>
-				<div class="col-md-3 col-sm-4 about-grid mt-sm-0">
+				<div class="col-md-3 col-sm-4 about-grid mt-sm-0 mycard">
 					<div class="about-grid-main"> 
-						<h1><%=arrData[i]["Restaurant Name"]%></h1>
+						<h1 class="name"><%=arrData[i]["Restaurant Name"]%></h1>
 						<h4 class="mb-3"><%=arrData[i]["Restaurant ID"]%></h4>
 						<p>Cuisines</p><h3><%=arrData[i]["Cuisines"]%></h3>
-						<p>Average Cost for two</p><h3><%=arrData[i]["Average Cost for two"]%></h3>
+						<p>Average Cost for two</p><h3 class="avgcost"><%=arrData[i]["Average Cost for two"]%></h3>
 						<p>Currency</p><h3><%=arrData[i]["Currency"]%></h3>
 						<p>Cuisines</p><h3><%=arrData[i]["Restaurant Name"]%></h3>
 						<p>Has Table booking</p><h3><%=arrData[i]["Has Table booking"]%></h3>
 						<p>Has Online delivery</p><h3><%=arrData[i]["Has Online delivery"]%></h3>
 						<p>Aggregate rating</p><h3><%=arrData[i]["Aggregate rating"]%></h3>
-						<p>Rating color</p><h3><%=arrData[i]["Rating color"]%></h3>
-						<p>Rating text</p><h3><%=arrData[i]["Rating text"]%></h3>
-						<p>Votes</p><h3><%=arrData[i]["Votes"]%></h3>
+						<p>Rating color</p><h3 class="ratecolor"><%=arrData[i]["Rating color"]%></h3>
+						<p>Rating text</p><h3 class="ratetext"><%=arrData[i]["Rating text"]%></h3>
+						<p>Votes</p><h3 class="vote"><%=arrData[i]["Votes\r"]%></h3>
 					</div>
 				</div> 
                  
@@ -371,6 +385,67 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	</script>
 	<script>
 		$(document).ready(function(){
+
+		    $('#searchBtn').click(function () {
+				var basis = $('#search').val();
+
+				if (basis.toString().toLowerCase() == 'name'){
+                    var value = $('#searchval').val().toLowerCase();
+				    $('.restaurants .mycard').filter(function () {
+						$(this).toggle($(this).find('div').find('.name').text().toLowerCase().indexOf(value)>-1)
+                    })
+				} else if (basis.toString().toLowerCase() == 'vote'){
+                    var value = $('#searchval').val().toLowerCase();
+                    $('.restaurants .mycard').filter(function () {
+                        $(this).toggle(parseInt($(this).find('div').find('.vote').text().toString())>value)
+                    })
+				}
+
+            });
+
+		    $('#search').change(function () {
+				if($(this).val().toString().toLowerCase() == 'rating'){
+				    $('#ratingblock').css({"display":"block"});
+				} else{
+                    $('#ratingblock').css({"display":"none"});
+
+                }
+            });
+
+
+
+		    var convert = {
+		        "Excellent":5,
+				"Very Good":4,
+				"Good":3,
+				"Average":2,
+				"Not Rated":1
+			};
+
+
+		    $('.rating').change(function () {
+				var rate = $(this).val();
+
+                $('.restaurants .mycard').filter(function () {
+                    $(this).toggle(convert[$(this).find('div').find('.ratetext').text().toString()]>=rate)
+                })
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     $('#login').click(function(){
         var email = $('#inputEmail').val();
         var password = $('#inputPassword').val();
